@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<h1>@HttpContextAccessor.HttpContext.Session.GetString("name")</h1>
+
+
+
+
+
+@model List<Core_Pro_For_Test.Models.Employee>
+
+
+<table class="table table-bordered table-dark">
+    <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Contact</th>
+        <th>City</th>
+        <th>Salary</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.Email</td>
+            <td>@item.Department</td>
+            <td>@item.Contact</td>
+            <td>@item.City</td>
+            <td>@item.Salary</td>
+            <td><a asp-controller="Home" asp-action="Edit" asp-route-Id="@item.Id">EDIT</a></td>
+            <td><a asp-controller="Home" asp-action="delete" asp-route-Id="@item.Id">Delete</a></td>
+
+
+        </tr>
+    }
+    
+
+
+</table>

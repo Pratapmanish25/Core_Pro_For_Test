@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<h1>@HttpContextAccessor.HttpContext.Session.GetString("name")</h1>
+
+
+<h1>****************************** viewbag information************************************</h1>
+<h2>@ViewBag.id</h2>
+<h2>@ViewBag.name</h2>
+<h2>@ViewBag.email</h2>
+<h2>@ViewBag.designation</h2>
+<ul>
+
+    @foreach (var item in ViewBag.list)
+    {
+        <li>
+            @item
+        </li>
+
+    }
+
+</ul>
+<h1>****************************** viewdata information************************************</h1>
+<h2>@ViewData["abc1"]</h2>
+<h2>@ViewData["abc2"]</h2>
+<h2>@ViewData["abc3"]</h2>
+<h2>@ViewData["abc4"]</h2>
+<h2>@ViewData["abc5"]</h2>
+
+<ul>
+    @foreach (var ath in (List<string>)ViewData["abc"])
+    {
+        <li>
+            @ath
+        </li>
+    }
+</ul>
+<h1>****************************** tempdata information************************************</h1>
+<h2>@TempData["abc"]</h2>
+<h2>@TempData["abc1"]</h2>
+<h2>@TempData["abc2"]</h2>
+<h2>@TempData["abc3"]</h2>
+<h2>@TempData["abc4"]</h2>
+<ul>
+    @foreach (var cri in (List<string>)TempData["er"])
+    {
+        <li>
+            @cri
+        </li>
+    }
+</ul>
