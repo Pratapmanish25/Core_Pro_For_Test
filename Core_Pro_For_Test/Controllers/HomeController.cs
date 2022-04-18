@@ -1,5 +1,8 @@
 ﻿using Core_Pro_For_Test.DB_Context;
 using Core_Pro_For_Test.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +11,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Core_Pro_For_Test.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -57,33 +62,43 @@ namespace Core_Pro_For_Test.Controllers
 
 
             };
-
-
-            
-
+            HttpContext.Session.SetString("name", "Manish Tomar");
+            var data = HttpContext.Session.GetString("name");
 
             return View();
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Index()
         {
             return View();
            
         }
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Index(userlogin mod)
         {
-            Chetu_AdministrationContext ent = new Chetu_AdministrationContext();
-            var user = ent.Logins.Where(m => m.Email == mod.Email).FirstOrDefault();
+            Chetu_AdministrationContext obj = new Chetu_AdministrationContext();
+            var user = obj.Logins.Where(m => m.Email == mod.Email).FirstOrDefault();
             if (user == null)
             {
                 TempData["invalid"] = "Email.is not found invalid user ";
             }
             else
             {
-                if(user.Email==mod.Email && user.Password == mod.Password) {
-
+                if(user.Email==mod.Email && user.Password == mod.Password)
+                {
+                    var claims = new[] {new Claim(ClaimTypes.Name,user.Name),
+                        new Claim(ClaimTypes.Name,user.Name) };
+                    
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var authproperties = new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    };
+                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(identity),
+                        authproperties);
 
                     HttpContext.Session.SetString("name",user.Name );
                      HttpContext.Session.GetString("name");
@@ -124,11 +139,14 @@ namespace Core_Pro_For_Test.Controllers
             return View(set);
 
         }
+        
+        
         [HttpGet]
         public IActionResult Registration()
         {
             return View();
         }
+      
         [HttpPost]
         public IActionResult Registration(Employee rock)
         {
@@ -180,8 +198,16 @@ namespace Core_Pro_For_Test.Controllers
             obj.SaveChanges();
             return RedirectToAction("emp_list");
         }
+        public IActionResult logout()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-       
+            return RedirectToAction("Index");
+
+        }
+        
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

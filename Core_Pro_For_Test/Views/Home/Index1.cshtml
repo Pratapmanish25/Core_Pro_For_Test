@@ -8,11 +8,11 @@
 <h1>@HttpContextAccessor.HttpContext.Session.GetString("name")</h1>
 
 
-<h1>****************************** viewbag information************************************</h1>
-<h2>@ViewBag.id</h2>
-<h2>@ViewBag.name</h2>
-<h2>@ViewBag.email</h2>
-<h2>@ViewBag.designation</h2>
+<h2>****************************** viewbag information************************************</h2>
+<h3>@ViewBag.id</h3>
+<h3>@ViewBag.name</h3>
+<h3>@ViewBag.email</h3>
+<h3>@ViewBag.designation</h3>
 <ul>
 
     @foreach (var item in ViewBag.list)
@@ -24,12 +24,12 @@
     }
 
 </ul>
-<h1>****************************** viewdata information************************************</h1>
-<h2>@ViewData["abc1"]</h2>
-<h2>@ViewData["abc2"]</h2>
-<h2>@ViewData["abc3"]</h2>
-<h2>@ViewData["abc4"]</h2>
-<h2>@ViewData["abc5"]</h2>
+<h2>****************************** viewdata information************************************</h2>
+<h3>@ViewData["abc1"]</h3>
+<h3>@ViewData["abc2"]</h3>
+<h3>@ViewData["abc3"]</h3>
+<h3>@ViewData["abc4"]</h3>
+<h3>@ViewData["abc5"]</h3>
 
 <ul>
     @foreach (var ath in (List<string>)ViewData["abc"])
@@ -39,12 +39,12 @@
         </li>
     }
 </ul>
-<h1>****************************** tempdata information************************************</h1>
-<h2>@TempData["abc"]</h2>
-<h2>@TempData["abc1"]</h2>
-<h2>@TempData["abc2"]</h2>
-<h2>@TempData["abc3"]</h2>
-<h2>@TempData["abc4"]</h2>
+<h2>>****************************** tempdata information************************************</h2>
+<h3>@TempData["abc"]</h3>
+<h3>@TempData["abc1"]</h3>
+<h3>@TempData["abc2"]</h3>
+<h3>@TempData["abc3"]</h3>
+<h3>@TempData["abc4"]</h3>
 <ul>
     @foreach (var cri in (List<string>)TempData["er"])
     {
