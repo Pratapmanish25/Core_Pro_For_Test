@@ -139,8 +139,34 @@ namespace Core_Pro_For_Test.Controllers
             return View(set);
 
         }
-        
-        
+
+
+
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Adduser()
+        {
+            return View();
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult Adduser(userlogin rock)
+        {
+            Chetu_AdministrationContext obj = new Chetu_AdministrationContext();
+            Login set = new Login();
+            set.Id= rock.Id;
+            set.Name = rock.Name;
+            set.Email = rock.Email;
+            set.Password = rock.Password;
+           
+            
+                obj.Logins.Add(set);
+                obj.SaveChanges();
+                return RedirectToAction("emp_list");
+
+        }
+
         [HttpGet]
         public IActionResult Registration()
         {

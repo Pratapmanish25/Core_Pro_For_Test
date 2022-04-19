@@ -1,0 +1,30 @@
+﻿
+@model Core_Pro_For_Test.Models.userlogin
+
+
+<h1>Adduser</h1>
+<form role="form" asp-controller="Home" asp-action="Adduser" method="post">
+    <div class="form-group col-lg-5">
+        <label>Name</label>
+        <input placeholder="Enter Name" class="form-control" asp-for="Name" type="text" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group col-lg-5">
+        <label>Email</label>
+        <input placeholder="Enter email" class="form-control" asp-for="Email" type="email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group col-lg-5">
+        <label>Password</label>
+        <input placeholder="Enter Mobile.no" class="form-control" asp-for="Password" type="text" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+
+    <input class="btn btn-success" value="submit" type="submit" />
+
+</form>
+<script src="/lib/jquery/dist/jquery.js"></script>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
